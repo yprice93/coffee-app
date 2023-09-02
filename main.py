@@ -1,4 +1,11 @@
-todos = []
+# todos = []
+
+
+def get_todos():
+    with open("file/todos.txt", "r") as file:
+        todos = file.readlines()
+    return todos
+
 
 while True:
     user_action = input("Type add, edit, show, complete, or quit: ")
@@ -7,8 +14,7 @@ while True:
     if user_action.startswith("add"):
         todo = user_action[4:] + "\n"
 
-        with open("file/todos.txt", "r") as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         todos.append(todo.title())
 
@@ -16,9 +22,7 @@ while True:
             file.writelines(todos)
 
     elif user_action.startswith("show"):
-        file = open("file/todos.txt", "r")
-        todos = file.readlines()
-        file.close()
+        todos = get_todos()
 
         for index, item in enumerate(todos):
             item = item.strip("\n")
@@ -30,8 +34,7 @@ while True:
             new_todo = input("Enter a new todo: ")
             todos[number] = new_todo.title() + "\n"
 
-            with open("file/todos.txt", "w") as file:
-                file.writelines(todos)
+            todos = get_todos()
         except ValueError:
             print("Your command is not valid")
             continue
@@ -40,8 +43,7 @@ while True:
         try:
             index = int(user_action[9:]) - 1
 
-            with open("file/todos.txt", "r") as file:
-                todos = file.readlines()
+            todos = get_todos()
 
             todos.pop(index)
 
