@@ -1,10 +1,12 @@
 # todos = []
-
-
-def get_todos():
-    with open("file/todos.txt", "r") as file:
+def get_todos(filepath):
+    with open(filepath, "r") as file:
         todos = file.readlines()
     return todos
+
+def write_todos(filepath, todos):
+    with open(filepath, "w") as file:
+        file.writelines(todos)
 
 
 while True:
@@ -14,41 +16,40 @@ while True:
     if user_action.startswith("add"):
         todo = user_action[4:] + "\n"
 
-        todos = get_todos()
+        todos = get_todos("file/todos.txt")
 
         todos.append(todo.title())
 
-        with open("file/todos.txt", "w") as file:
-            file.writelines(todos)
+        write_todos("file/todos.txt", todos)
 
     elif user_action.startswith("show"):
-        todos = get_todos()
+        todos = get_todos("file/todos.txt")
 
         for index, item in enumerate(todos):
             item = item.strip("\n")
             print(f"{index + 1} - {item}")
     elif user_action.startswith("edit"):
         try:
+            todos = get_todos("file/todos.txt")
+            
             number = int(user_action[5:]) - 1
-
             new_todo = input("Enter a new todo: ")
             todos[number] = new_todo.title() + "\n"
-
-            todos = get_todos()
+            
+            write_todos("file/todos.txt", todos)
+            
         except ValueError:
             print("Your command is not valid")
             continue
-
     elif user_action.startswith("complete"):
         try:
             index = int(user_action[9:]) - 1
 
-            todos = get_todos()
+            todos = get_todos("file/todos.txt")
 
             todos.pop(index)
 
-            with open("file/todos.txt", "w") as file:
-                file.writelines(todos)
+            write_todos("file/todos.txt", todos)
 
             print(f"Task #{index+1} completed")
         except IndexError:
