@@ -1,3 +1,5 @@
 Water The Plants
 Cook Lunch
 Code A New Feature
+plant seeds
+study Python
