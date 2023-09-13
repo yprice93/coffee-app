@@ -1,11 +1,4 @@
-Water The Plants
-
-call landlord
-organize closet
-
 Cook Lunch
-Code A New Feature
-plant seeds
 study Python
 finish the book
 meal prep
