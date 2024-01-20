@@ -1,10 +1,19 @@
+import CafeList from "../components/CafeList";
+import CafeMap from "../components/CafeMap";
+
 export default function Main() {
   return (
-    <div>
-      <div>
-        <h1> This side is the list of coffee shops</h1>
-      </div>
-      <div>And this side is map</div>
+    // <div className="main-parent">
+    //   <div className="main-child">
+    //     <CafeList />
+    //   </div>
+    //   <div className="main-child">
+    //     <CafeMap />
+    //   </div>
+    // </div>
+    <div className="main-parent">
+      <CafeList />
+      <CafeMap />
     </div>
   );
 }
