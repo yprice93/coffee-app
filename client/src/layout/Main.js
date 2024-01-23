@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import CafeList from "../components/CafeList";
 import CafeMap from "../components/CafeMap";
 
@@ -13,6 +14,7 @@ export default function Main() {
     // </div>
     <div className="main-parent">
       <CafeList />
+
       <CafeMap />
     </div>
   );
