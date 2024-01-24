@@ -6,6 +6,7 @@ import Home from "./layout/Home";
 import Main from "./layout/Main";
 import Login from "./layout/Login";
 import Nav from "./components/Nav";
+import { ContextProvider, MyContext } from "./context/MyContext";
 
 function App() {
   // const [message, setMessage] = useState("Hi");
@@ -27,14 +28,16 @@ function App() {
   */
 
   return (
-    <BrowserRouter>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <ContextProvider>
+      <BrowserRouter>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </ContextProvider>
   );
 }
 
