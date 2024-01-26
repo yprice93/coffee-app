@@ -1,1 +1,3 @@
-export default function CafeItem() {}
+export default function CafeItem() {
+  <div></div>;
+}

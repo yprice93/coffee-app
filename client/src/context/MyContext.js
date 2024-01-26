@@ -8,7 +8,7 @@ const URL = "https://places.googleapis.com/v1/places:searchNearby";
 const headers = {
   "Content-Type": "application/json",
   "X-Goog-Api-Key": "AIzaSyANWsxQFJo4Q1DznbWperqnxelO7UB5bVk",
-  "X-Goog-FieldMask": "places.displayName",
+  "X-Goog-FieldMask": "*",
 };
 
 function ContextProvider({ children }) {
@@ -17,6 +17,7 @@ function ContextProvider({ children }) {
   const [userLocation, setUserLocation] = useState(position);
   const [cafes, setCafes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [placePhotos, setPlacePhotos] = useState([]);
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
