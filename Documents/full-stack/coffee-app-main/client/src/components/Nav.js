@@ -13,9 +13,9 @@ export default function Nav() {
         {/* <Link to="/">Home</Link> */}
         <li>
           {" "}
-          <Link type="button" to="/login" className="btn btn-outline-dark">
+          {/* <Link type="button" to="/login" className="btn btn-outline-dark">
             Login
-          </Link>
+          </Link> */}
         </li>
       </ul>
     </div>

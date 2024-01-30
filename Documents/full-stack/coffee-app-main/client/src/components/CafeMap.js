@@ -35,7 +35,7 @@ export default function CafeMap() {
 
   return (
     <APIProvider apiKey={API_KEY}>
-      <Map center={userLocation} zoom={12}>
+      <Map center={userLocation} zoom={14}>
         <Marker position={userLocation} onClick={() => setOpen(true)} />
         {open && (
           <InfoWindow
@@ -45,7 +45,7 @@ export default function CafeMap() {
             <p>Your Location</p>
           </InfoWindow>
         )}
-        {cafes.map((cafe) => {
+        {cafes.map((cafe) => (
           <>
             <Marker
               position={{
@@ -61,8 +61,8 @@ export default function CafeMap() {
             >
               <p>{cafe.displayName.text}</p>
             </InfoWindow>
-          </>;
-        })}
+          </>
+        ))}
       </Map>
     </APIProvider>
   );
