@@ -8,7 +8,7 @@ export default function CafeItem({ cafe }) {
   };
 
   return (
-    <div class="card mb-1">
+    <div class="card mb-0">
       {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
       <div class="card-body">
         <h5 class="card-title">{cafe.displayName.text}</h5>

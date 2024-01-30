@@ -4,6 +4,7 @@ import axios from "axios";
 export const MyContext = createContext();
 
 const URL = "https://places.googleapis.com/v1/places:searchNearby";
+const textSearchURL = "https://places.googleapis.com/v1/places:searchText";
 
 const headers = {
   "Content-Type": "application/json",
@@ -18,15 +19,28 @@ function ContextProvider({ children }) {
   const [cafes, setCafes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [placePhotos, setPlacePhotos] = useState([]);
+  const [query, setQuery] = useState("");
 
-  const getUserLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation({ lat: latitude, lng: longitude });
+  const getUserLocation = async (query) => {
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     const { latitude, longitude } = position.coords;
+    //     setUserLocation({ lat: latitude, lng: longitude });
+    //   });
+    // } else {
+    //   console.error("Geolocation is not supported by this browser");
+    // }
+    const data = { textQuery: query };
+    try {
+      const res = await axios.post(textSearchURL, data, { headers });
+      const responseData = res.data;
+      console.log("Text Search Result:", responseData.places[0].location);
+      setUserLocation({
+        lat: responseData.places[0].location.latitude,
+        lng: responseData.places[0].location.longitude,
       });
-    } else {
-      console.error("Geolocation is not supported by this browser");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -74,6 +88,8 @@ function ContextProvider({ children }) {
         setCafes,
         isLoading,
         setIsLoading,
+        query,
+        setQuery,
       }}
     >
       {children}

@@ -29,9 +29,9 @@ export default function CafeMap() {
   //   }
   // };
 
-  useEffect(() => {
-    getUserLocation();
-  }, []);
+  // useEffect(() => {
+  //   getUserLocation();
+  // }, []);
 
   return (
     <APIProvider apiKey={API_KEY}>
