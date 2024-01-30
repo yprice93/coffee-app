@@ -5,3 +5,6 @@ Coffee App is a web-based application where user can look up a location and find
 
 ### To-dos
 ~~1. Implement Text Search~~
+2. Login Authentication
+3. Rating System
+4. UI Fix
