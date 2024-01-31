@@ -1,10 +1,18 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import axios from "axios";
 
 export const MyContext = createContext();
 
 const URL = "https://places.googleapis.com/v1/places:searchNearby";
 const textSearchURL = "https://places.googleapis.com/v1/places:searchText";
+
+const API_KEY = "AIzaSyANWsxQFJo4Q1DznbWperqnxelO7UB5bVk";
 
 const headers = {
   "Content-Type": "application/json",
@@ -73,8 +81,50 @@ function ContextProvider({ children }) {
     setIsLoading(false);
   }, [userLocation]);
 
-  console.log(cafes);
-  cafes.length > 0 && cafes.map((cafe) => console.log(cafe.displayName.text));
+  // cafes.length > 0 && cafes.map((cafe) => console.log(cafe.displayName.text));
+
+  // const getPhotos = async (photoName) => {
+  //   try {
+  //     const photoURL = `https://places.googleapis.com/v1/${photoName}/media?maxHeightPx=400&key=${API_KEY}&skipHttpRedirect=true`;
+  //     const res = await axios.post(photoURL);
+  //     const responseData = res.data;
+  //     console.log(responseData);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // Utility function for debouncing
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+
+  const debouncedGetPhotos = useCallback(
+    debounce((photoName) => {
+      getPhotos(photoName);
+    }, 10000), // 1000 milliseconds debounce time
+    []
+  );
+
+  const getPhotos = async (photoName) => {
+    try {
+      // Use the proxy server for the Google Places API
+      const photoURL = `http://localhost:3001/google-api/v1/${photoName}/media?maxHeightPx=400&key=${API_KEY}&skipHttpRedirect=true`;
+      const res = await axios.get(photoURL);
+      const responseData = res.data;
+      setPlacePhotos(responseData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    cafes.map((cafe) => getPhotos(cafe.photos[0].name));
+  }, [cafes, debouncedGetPhotos]);
 
   return (
     <MyContext.Provider
@@ -90,6 +140,7 @@ function ContextProvider({ children }) {
         setIsLoading,
         query,
         setQuery,
+        placePhotos,
       }}
     >
       {children}

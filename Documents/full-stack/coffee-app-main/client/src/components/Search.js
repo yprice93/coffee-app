@@ -6,8 +6,7 @@ export default function Search() {
   const [input, setInput] = useState();
 
   const handleClick = () => {
-    setQuery(input);
-    getUserLocation(query);
+    getUserLocation(input);
   };
 
   return (
